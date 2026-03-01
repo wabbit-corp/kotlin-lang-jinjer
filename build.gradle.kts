@@ -32,7 +32,7 @@ publishing {
 }
 
 dependencies {
-    implementation("com.github.wabbit-corp:kotlin-parsing-charinput:1.2.0")
+    implementation("one.wabbit:kotlin-parsing-charinput:1.2.0")
 
     testImplementation(kotlin("test"))
 
