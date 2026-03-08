@@ -3,19 +3,17 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 repositories {
     mavenCentral()
-
-    maven("https://jitpack.io")
 }
 
 group   = "one.wabbit"
 version = "1.2.0"
 
 plugins {
-    kotlin("jvm") version "2.2.20"
-    id("org.jetbrains.dokka") version "2.0.0"
-    id("org.jetbrains.kotlinx.kover") version "0.9.1"
+    kotlin("jvm")
+    id("org.jetbrains.dokka")
+    id("org.jetbrains.kotlinx.kover")
 
-    kotlin("plugin.serialization") version "2.2.20"
+    kotlin("plugin.serialization")
 
     id("maven-publish")
 }
@@ -32,7 +30,7 @@ publishing {
 }
 
 dependencies {
-    implementation("one.wabbit:kotlin-parsing-charinput:1.2.0")
+    implementation(project(":kotlin-parsing-charinput")) // 1.2.0
 
     testImplementation(kotlin("test"))
 
@@ -61,7 +59,9 @@ tasks {
     withType<KotlinCompile> {
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_21)
-            freeCompilerArgs.add("-Xcontext-receivers")
+
+            freeCompilerArgs.add("-Xcontext-parameters")
+
         }
     }
 
