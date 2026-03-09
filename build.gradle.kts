@@ -3,6 +3,8 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 repositories {
     mavenCentral()
+
+    maven("https://jitpack.io")
 }
 
 group   = "one.wabbit"
@@ -30,7 +32,7 @@ publishing {
 }
 
 dependencies {
-    implementation(project(":kotlin-parsing-charinput")) // 1.2.0
+    implementation("one.wabbit:kotlin-parsing-charinput:1.2.0")
 
     testImplementation(kotlin("test"))
 
