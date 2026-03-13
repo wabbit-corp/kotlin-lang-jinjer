@@ -241,12 +241,12 @@ class TemplateScanner(val input: CharInput<TextAndPosSpan>) {
         debug("readId") {
             val start = input.mark()
 
-            if (!input.current.isJavaIdentifierStart()) {
+            if (!input.current.isLetter() && input.current != '_') {
                 return@debug null
             }
             input.advance()
 
-            while (input.current.isJavaIdentifierPart()) {
+            while (input.current.isLetterOrDigit() || input.current == '_') {
                 input.advance()
             }
 
@@ -285,7 +285,7 @@ private fun resolveVar(ctx: TemplateContext, parts: List<String>): TmplValue? {
             }
             is TmplValue.List -> {
                 val index = part.toIntOrNull() ?: return null
-                val value = current.value[index] ?: return null
+                val value = current.value.getOrNull(index) ?: return null
                 current = value
             }
             is TmplValue.String -> return null
