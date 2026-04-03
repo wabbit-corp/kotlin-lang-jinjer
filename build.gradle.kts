@@ -11,7 +11,7 @@ repositories {
 }
 
 group = "one.wabbit"
-version = "1.3.0"
+version = "1.2.0"
 
 plugins {
     id("com.android.kotlin.multiplatform.library")
@@ -19,6 +19,8 @@ plugins {
     kotlin("multiplatform")
 
     kotlin("plugin.serialization")
+
+    id("one.wabbit.acyclic")
 
     id("org.jetbrains.dokka")
     id("org.jetbrains.kotlinx.kover")
@@ -28,7 +30,7 @@ plugins {
 }
 
 mavenPublishing {
-    coordinates("one.wabbit", "kotlin-lang-jinjer", "1.3.0")
+    coordinates("one.wabbit", "kotlin-lang-jinjer", "1.2.0")
     publishToMavenCentral()
     signAllPublications()
     pom {
@@ -72,6 +74,11 @@ kotlin {
     compilerOptions {
         freeCompilerArgs.add("-Xcontext-parameters")
 
+        freeCompilerArgs.addAll(
+            "-P",
+            "plugin:one.wabbit.acyclic:compilationUnits=enabled",
+        )
+
     }
     applyDefaultHierarchyTemplate()
 
@@ -96,8 +103,16 @@ kotlin {
 
     macosArm64("hostNative")
 
-    targets.withType(KotlinNativeTarget::class.java).configureEach {
-        binaries.framework {
+    listOf(
+
+        targets.getByName("iosArm64"),
+
+        targets.getByName("iosSimulatorArm64"),
+
+        targets.getByName("hostNative"),
+
+    ).forEach { target ->
+        (target as KotlinNativeTarget).binaries.framework {
             baseName = "LangJinjer"
             isStatic = true
         }
