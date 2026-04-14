@@ -10,5 +10,6 @@ Add repo-specific instructions above or below the managed facts block. Keep manu
 - Canonical repo target: `kotlin-lang-jinjer`. Useful entrypoints: `dev project show kotlin-lang-jinjer`, `dev build kotlin-lang-jinjer`, `dev check kotlin-lang-jinjer`.
 - Setup-managed files are regenerated with `dev setup kotlin-lang-jinjer`; avoid hand-editing stamped generated files.
 - Sanctioned override files in this repo: `build.extra.gradle.kts`, `settings.local.gradle.kts`.
+- Review `kotlin-conventions.md` before editing Kotlin code in this repo.
 - Configured project types: `kotlin/kmp`. Docs: `dokka`.
 <!-- END app-wabbit-dev managed facts -->
